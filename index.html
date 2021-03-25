@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="index.js" defer></script>
+    <title>Google Keep</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <form class="formInputModal">
+          <input
+            type="text"
+            name="titleModal"
+            placeholder="Title"
+            class="titleInputModal"
+            autocomplete="off"
+          />
+          <textarea
+            name="noteModal"
+            placeholder="Take a note..."
+            class="noteInputModal"
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          ></textarea>
+          <div class="form-buttonsModal">
+            <button class="submitModal" type="submit">Submit</button>
+          </div>
+        </form>
+        <span class="closeModalWindow">&times;</span>
+      </div>
+    </div>
+
+    <div class="heading">
+      <img src="images/keep_logo.png" alt="logo" class="heading__logo" />
+      <h2 class="heading__text">Keep</h2>
+    </div>
+    <form class="formInput">
+      <input
+        type="text"
+        name="title"
+        placeholder="Title"
+        class="titleInput"
+        autocomplete="off"
+        value=""
+      />
+      <textarea
+        name="note"
+        placeholder="Take a note..."
+        class="noteInput"
+        rows="1"
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+      ></textarea>
+      <div class="form-buttons">
+        <button class="submit" type="submit">Submit</button>
+        <button class="close">Close</button>
+      </div>
+    </form>
+    <p class="notes-message">Notes you add appear here</p>
+    <div class="note-container"></div>
+  </body>
+</html>

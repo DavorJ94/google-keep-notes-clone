@@ -1,0 +1,115 @@
+import IdGenerator from "./idGenerator.js";
+import createNewNote from "./createNewNote.js";
+import removeNote from "./removeNote.js";
+import changeNoteColor from "./changeNoteColor.js";
+import modalFunction, { saveToLocalStorageModal } from "./modalFunction.js";
+
+const formInput = document.querySelector(".formInput");
+const titleInput = document.querySelector(".titleInput");
+const formButtons = document.querySelector(".form-buttons");
+const noteInput = document.querySelector(".noteInput");
+const submitButton = document.querySelector(".submit");
+const closeButton = document.querySelector(".close");
+const modal = document.querySelector("#myModal");
+const closeModal = document.querySelector(".closeModalWindow");
+const submitModal = document.querySelector(".submitModal");
+const notesMessage = document.querySelector(".notes-message");
+
+window.addEventListener("load", () => {
+  const storageItems = Object.values({ ...localStorage });
+  storageItems.map((note) => {
+    let noteElement = JSON.parse(note);
+    createNewNote(
+      noteElement.id,
+      noteElement.titleInput,
+      noteElement.noteInput,
+      noteElement.bkgColor,
+      noteElement.textColor
+    );
+  });
+  if (storageItems.length === 0) {
+    notesMessage.style.display = "block";
+  } else {
+    notesMessage.style.display = "none";
+  }
+});
+
+function setDefaultTextArea(element) {
+  element.style.height = "inherit";
+}
+
+document.addEventListener("click", function (e) {
+  e.preventDefault();
+  const isClickInside = formInput.contains(e.target);
+  const isClickClose = closeButton.contains(e.target);
+  const isClickSubmit = submitButton.contains(e.target);
+  if (!isClickInside || isClickClose || isClickSubmit) {
+    titleInput.value = "";
+    noteInput.value = "";
+    titleInput.style.display = "none";
+    formButtons.style.display = "none";
+    const storageItems = Object.values({ ...localStorage });
+    if (storageItems.length === 0) {
+      notesMessage.style.display = "block";
+    } else {
+      notesMessage.style.display = "none";
+    }
+    setDefaultTextArea(noteInput);
+  } else {
+    titleInput.style.display = "inline-block";
+    formButtons.style.display = "flex";
+    setDefaultTextArea(noteInput);
+    const storageItems = Object.values({ ...localStorage });
+    if (storageItems.length === 0) {
+      notesMessage.style.display = "block";
+    } else {
+      notesMessage.style.display = "none";
+    }
+  }
+
+  if (e.target.classList.contains("buttonTrash")) removeNote(e.target);
+  if (e.target.classList.contains("color-option")) changeNoteColor(e.target);
+  if (
+    e.target.classList.contains("note") ||
+    e.target.classList.contains("noteTitle") ||
+    e.target.classList.contains("noteText") ||
+    e.target.classList.contains("trash-and-color-container")
+  ) {
+    modalFunction(e.target.getAttribute("name"));
+  }
+});
+
+submitButton.addEventListener("click", saveToLocalStorage);
+submitModal.addEventListener("click", saveToLocalStorageModal);
+
+function saveToLocalStorage(e) {
+  e.preventDefault();
+
+  if (!titleInput.value && !noteInput.value)
+    return alert("Fill out title or text form.");
+  const id = IdGenerator({ id: "" });
+  localStorage.setItem(
+    id,
+    JSON.stringify({
+      id,
+      titleInput: titleInput.value,
+      noteInput: noteInput.value,
+      bkgColor: "white",
+      textColor: "#5f6368",
+    })
+  );
+  createNewNote(id, titleInput.value, noteInput.value);
+  titleInput.value = "";
+  noteInput.value = "";
+}
+
+// For closing modal
+closeModal.onclick = function () {
+  modal.style.display = "none";
+};
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
