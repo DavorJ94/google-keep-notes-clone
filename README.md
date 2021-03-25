@@ -2,6 +2,8 @@
 
 Page created mainly for Javascript practice, no additional frameworks.
 
+You can preview page at https://davorj94.github.io/google-keep-notes-clone/.
+
 The page looks like the design from Scrimba, but additional functionality is added and no code is used from there.
 
 Each note is saved to local storage and can be accessed during following sessions after its creation.
