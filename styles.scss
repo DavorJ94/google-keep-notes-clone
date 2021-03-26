@@ -264,26 +264,11 @@ body {
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: transparent;
   margin: 0 auto;
   padding: 2em;
-  border: 1px solid #888;
   width: 60%;
   display: flex;
-}
-
-/* The Close Button */
-.closeModalWindow {
-  color: #aaaaaa;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.closeModalWindow:hover,
-.closeModalWindow:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .formInputModal {
@@ -297,6 +282,7 @@ body {
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
   padding: 0 1em;
   min-height: 30px;
+  background-color: #fefefe;
 }
 
 .titleInputModal,
