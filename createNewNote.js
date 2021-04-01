@@ -2,6 +2,7 @@ function createNewNote(
   id,
   titleValue,
   textValue,
+  labelValue = "",
   bkgColor = "white",
   textColor = "#5f6368"
 ) {
@@ -13,6 +14,14 @@ function createNewNote(
   note.setAttribute("id", `note-${id}`);
   note.setAttribute("name", `${id}`);
 
+  let eachLabelItem = labelValue
+    .replace(/, /g, ",")
+    .split(",")
+    .map((item) => {
+      if (item !== "") return `<div class="label" name=${id}>${item}</div>`;
+    })
+    .join("");
+  let labelContainer = `<div class="labelContainer" id="labelContainer-${id}" name="labelContainer-${id}">${eachLabelItem}</div>`;
   note.innerHTML = `
   <div class="noteTitle" id='title-${id}' style='${
     titleValue ? "" : "font-size: 10px; font-style: italic;"
@@ -24,17 +33,21 @@ function createNewNote(
   } color: ${textColor}' name=${id}>${
     textValue ? textValue : "(no description)"
   } </div>
-  <div class="trash-and-color-container" name=${id} id="trashAndPalette-"${id}>
-    <button class="buttonAll buttonTrash" ><i name=${id} class="fas fa-trash buttonTrash"></i></button>
-    <button class="buttonAll buttonPalette"><i name=${id} class="fas fa-palette palette">
-    <div class="color-tooltip" name=${id}>
-      <div class="color-option" data-color="#fff" data-text-color="#5f6368" id="white"></div>
-      <div class="color-option" data-color="#d7aefb" data-text-color="black" id="purple"></div>
-      <div class="color-option" data-color="#fbbc04" data-text-color="black" id="orange"></div>
-      <div class="color-option" data-color="#a7ffeb" data-text-color="black" id="teal"></div>
-      <div class="color-option" data-color="#46c221" data-text-color="black" id="green"></div>
-    </div></i></button>
-  </div>
+  ${labelValue && `<div class="labelAndIconsContainer">`}
+    ${labelValue && labelContainer}
+    <div class="trash-and-color-container" name=${id} id="trashAndPalette-"${id}>
+
+      <button class="buttonAll buttonTrash" ><i name=${id} class="fas fa-trash buttonTrash"></i></button>
+      <button class="buttonAll buttonPalette"><i name=${id} class="fas fa-palette palette">
+      <div class="color-tooltip" name=${id}>
+        <div class="color-option" data-color="#fff" data-text-color="#5f6368" id="white"></div>
+        <div class="color-option" data-color="#d7aefb" data-text-color="black" id="purple"></div>
+        <div class="color-option" data-color="#fbbc04" data-text-color="black" id="orange"></div>
+        <div class="color-option" data-color="#a7ffeb" data-text-color="black" id="teal"></div>
+        <div class="color-option" data-color="#46c221" data-text-color="black" id="green"></div>
+      </div></i></button>
+    </div>
+    ${labelValue && `</div>`}
   `;
   noteContainer.insertBefore(note, noteContainer.childNodes[0]);
 }

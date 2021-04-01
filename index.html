@@ -20,28 +20,33 @@
   </head>
   <body>
     <div id="myModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <form class="formInputModal">
-          <input
-            type="text"
-            name="titleModal"
-            placeholder="Title"
-            class="titleInputModal"
-            autocomplete="off"
-          />
-          <textarea
-            name="noteModal"
-            placeholder="Take a note..."
-            class="noteInputModal"
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-          ></textarea>
-          <div class="form-buttonsModal">
-            <button class="submitModal" type="submit">Submit</button>
-          </div>
-        </form>
-        <span class="closeModalWindow"></span>
-      </div>
+      <form class="formInputModal">
+        <input
+          type="text"
+          name="titleModal"
+          placeholder="Title"
+          class="titleInputModal"
+          autocomplete="off"
+        />
+        <textarea
+          name="noteModal"
+          placeholder="Take a note..."
+          class="noteInputModal"
+          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+        ></textarea>
+        <input
+          type="text"
+          name="labelsModal"
+          placeholder="Labels (separate with comma)"
+          class="labelInputModal"
+          maxlength="30"
+          autocomplete="off"
+          value=""
+        />
+        <div class="form-buttonsModal">
+          <button class="submitModal" type="submit">Submit</button>
+        </div>
+      </form>
     </div>
 
     <div class="heading">
@@ -53,6 +58,7 @@
         type="text"
         name="title"
         placeholder="Title"
+        id="titleInput"
         class="titleInput"
         autocomplete="off"
         value=""
@@ -64,6 +70,16 @@
         rows="1"
         oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
       ></textarea>
+      <input
+        type="text"
+        name="labels"
+        placeholder="Labels (separate with comma)"
+        class="labelInput titleInput"
+        id="labelInput"
+        maxlength="30"
+        autocomplete="off"
+        value=""
+      />
       <div class="form-buttons">
         <button class="submit" type="submit">Submit</button>
         <button class="close">Close</button>

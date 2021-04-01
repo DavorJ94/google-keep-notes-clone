@@ -5,13 +5,13 @@ import changeNoteColor from "./changeNoteColor.js";
 import modalFunction, { saveToLocalStorageModal } from "./modalFunction.js";
 
 const formInput = document.querySelector(".formInput");
-const titleInput = document.querySelector(".titleInput");
+const titleInput = document.querySelector("#titleInput");
+const labelInput = document.querySelector("#labelInput");
 const formButtons = document.querySelector(".form-buttons");
 const noteInput = document.querySelector(".noteInput");
 const submitButton = document.querySelector(".submit");
 const closeButton = document.querySelector(".close");
 const modal = document.querySelector("#myModal");
-const closeModal = document.querySelector(".closeModalWindow");
 const submitModal = document.querySelector(".submitModal");
 const notesMessage = document.querySelector(".notes-message");
 
@@ -23,6 +23,7 @@ window.addEventListener("load", () => {
       noteElement.id,
       noteElement.titleInput,
       noteElement.noteInput,
+      noteElement.labelInput,
       noteElement.bkgColor,
       noteElement.textColor
     );
@@ -46,8 +47,10 @@ document.addEventListener("click", function (e) {
   if (!isClickInside || isClickClose || isClickSubmit) {
     titleInput.value = "";
     noteInput.value = "";
+    labelInput.value = "";
     titleInput.style.display = "none";
     formButtons.style.display = "none";
+    labelInput.style.display = "none";
     const storageItems = Object.values({ ...localStorage });
     if (storageItems.length === 0) {
       notesMessage.style.display = "block";
@@ -58,6 +61,7 @@ document.addEventListener("click", function (e) {
   } else {
     titleInput.style.display = "inline-block";
     formButtons.style.display = "flex";
+    labelInput.style.display = "inline-block";
     setDefaultTextArea(noteInput);
     const storageItems = Object.values({ ...localStorage });
     if (storageItems.length === 0) {
@@ -73,6 +77,7 @@ document.addEventListener("click", function (e) {
     e.target.classList.contains("note") ||
     e.target.classList.contains("noteTitle") ||
     e.target.classList.contains("noteText") ||
+    e.target.classList.contains("label") ||
     e.target.classList.contains("trash-and-color-container")
   ) {
     modalFunction(e.target.getAttribute("name"));
@@ -84,7 +89,6 @@ submitModal.addEventListener("click", saveToLocalStorageModal);
 
 function saveToLocalStorage(e) {
   e.preventDefault();
-
   if (!titleInput.value && !noteInput.value)
     return alert("Fill out title or text form.");
   const id = IdGenerator({ id: "" });
@@ -94,22 +98,18 @@ function saveToLocalStorage(e) {
       id,
       titleInput: titleInput.value,
       noteInput: noteInput.value,
+      labelInput: labelInput.value,
       bkgColor: "white",
       textColor: "#5f6368",
     })
   );
-  createNewNote(id, titleInput.value, noteInput.value);
+  createNewNote(id, titleInput.value, noteInput.value, labelInput.value);
   titleInput.value = "";
   noteInput.value = "";
 }
 
-// For closing modal
-closeModal.onclick = function () {
-  modal.style.display = "none";
-};
-
 window.onclick = function (event) {
-  if (event.target == modal) {
+  if (event.target === modal) {
     modal.style.display = "none";
   }
 };

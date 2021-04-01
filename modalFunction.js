@@ -3,16 +3,22 @@ import IdGenerator from "./idGenerator.js";
 const modal = document.getElementById("myModal");
 const titleInput = document.querySelector(".titleInputModal");
 const textInput = document.querySelector(".noteInputModal");
+const labelInput = document.querySelector(".labelInputModal");
 
 export default function modalFunction(id) {
   modal.style.display = "block";
   titleInput.value = "";
   textInput.value = "";
+  labelInput.value = "";
   modal.setAttribute("data-currentNote", `${id}`);
   const clickedNoteTitle = document.querySelector(`#title-${id}`).innerText;
   const clickedNoteText = document.querySelector(`#text-${id}`).innerText;
+  const clickedNoteLabels = document
+    .querySelector(`#labelContainer-${id}`)
+    .innerText.replace(/\n/g, ", ");
   if (clickedNoteTitle !== "(no title)") titleInput.value = clickedNoteTitle;
   if (clickedNoteText !== "(no description)") textInput.value = clickedNoteText;
+  labelInput.value = clickedNoteLabels;
 }
 
 export function saveToLocalStorageModal(e) {
@@ -30,10 +36,12 @@ export function saveToLocalStorageModal(e) {
       ...localStorageItem,
       titleInput: titleInput.value,
       noteInput: textInput.value,
+      labelInput: labelInput.value,
     })
   );
   const clickedNoteTitle = document.querySelector(`#title-${currentId}`);
   const clickedNoteText = document.querySelector(`#text-${currentId}`);
+  const clickedNoteLabels = document.querySelector(`#labelContainer-${id}`);
   if (titleInput.value) {
     clickedNoteTitle.innerText = titleInput.value;
     clickedNoteTitle.style.fontSize = "";
@@ -54,7 +62,19 @@ export function saveToLocalStorageModal(e) {
     clickedNoteText.style.fontStyle = "italic";
   }
 
+  if (labelInput.value) {
+    let eachLabelItem = labelInput.value
+      .replace(/, /g, ",")
+      .split(",")
+      .map((item) => {
+        return `<div class="label">${item}</div>`;
+      })
+      .join("");
+    clickedNoteLabels.innerHTML = eachLabelItem;
+  }
+
   titleInput.value = "";
   textInput.value = "";
+  labelInput.value = "";
   modal.style.display = "none";
 }
