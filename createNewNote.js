@@ -33,8 +33,8 @@ function createNewNote(
   } color: ${textColor}' name=${id}>${
     textValue ? textValue : "(no description)"
   } </div>
-  ${labelValue && `<div class="labelAndIconsContainer">`}
-    ${labelValue && labelContainer}
+  <div class="labelAndIconsContainer">
+    ${labelContainer}
     <div class="trash-and-color-container" name=${id} id="trashAndPalette-"${id}>
       <button class="buttonAll buttonTrash" ><i name=${id} class="fas fa-trash buttonTrash"></i></button>
       <button class="buttonAll buttonPalette"><i name=${id} class="fas fa-palette palette">
@@ -46,7 +46,7 @@ function createNewNote(
         <div class="color-option" data-color="#46c221" data-text-color="black" id="green"></div>
       </div></i></button>
     </div>
-    ${labelValue && `</div>`}
+    </div>
   `;
   noteContainer.insertBefore(note, noteContainer.childNodes[0]);
 }

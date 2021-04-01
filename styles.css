@@ -140,8 +140,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 80%;
-  margin: 2em auto;
-  margin-top: 2em;
+  margin: 1em auto;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   -webkit-box-pack: center;
@@ -350,6 +349,40 @@ body {
   letter-spacing: 0.6px;
   font-size: 6px;
   font-weight: bold;
+}
+
+.searchNotesContainer {
+  margin: 2em auto 0 auto;
+  width: 150px;
+  font-size: 16px;
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: 2px solid #888;
+  cursor: pointer;
+}
+
+.searchNotesContainer:focus-within {
+  border-bottom: 3px solid black;
+}
+
+.searchNotes {
+  font-family: "Google Sans", sans-serif;
+  width: 100px;
+  border: none;
+  outline: none;
+  margin-left: 0.3em;
+  letter-spacing: 1px;
+  color: #888;
+}
+
+.searchNotes:focus .fa-search {
+  color: black;
+}
+
+.fa-search {
+  color: #888;
 }
 
 .modal {

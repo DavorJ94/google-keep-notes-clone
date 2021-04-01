@@ -3,6 +3,7 @@ import createNewNote from "./createNewNote.js";
 import removeNote from "./removeNote.js";
 import changeNoteColor from "./changeNoteColor.js";
 import modalFunction, { saveToLocalStorageModal } from "./modalFunction.js";
+import filterNotes from "./filterNotes.js";
 
 const formInput = document.querySelector(".formInput");
 const titleInput = document.querySelector("#titleInput");
@@ -14,6 +15,8 @@ const closeButton = document.querySelector(".close");
 const modal = document.querySelector("#myModal");
 const submitModal = document.querySelector(".submitModal");
 const notesMessage = document.querySelector(".notes-message");
+const searchNotesContainer = document.querySelector(".searchNotesContainer");
+const searchNotesInput = document.querySelector(".searchNotes");
 
 window.addEventListener("load", () => {
   const storageItems = Object.values({ ...localStorage });
@@ -32,6 +35,11 @@ window.addEventListener("load", () => {
     notesMessage.style.display = "block";
   } else {
     notesMessage.style.display = "none";
+  }
+  if (storageItems.length >= 2) {
+    searchNotesContainer.style.display = "flex";
+  } else {
+    searchNotesContainer.style.display = "none";
   }
 });
 
@@ -58,6 +66,12 @@ document.addEventListener("click", function (e) {
     } else {
       notesMessage.style.display = "none";
     }
+
+    if (storageItems.length >= 2) {
+      searchNotesContainer.style.display = "flex";
+    } else {
+      searchNotesContainer.style.display = "none";
+    }
     setDefaultTextArea(noteInput);
   } else {
     titleInput.style.display = "inline-block";
@@ -71,9 +85,22 @@ document.addEventListener("click", function (e) {
     } else {
       notesMessage.style.display = "none";
     }
+    if (storageItems.length >= 2) {
+      searchNotesContainer.style.display = "flex";
+    } else {
+      searchNotesContainer.style.display = "none";
+    }
   }
 
-  if (e.target.classList.contains("buttonTrash")) removeNote(e.target);
+  if (e.target.classList.contains("buttonTrash")) {
+    removeNote(e.target);
+    const storageItems = Object.values({ ...localStorage });
+    if (storageItems.length >= 2) {
+      searchNotesContainer.style.display = "flex";
+    } else {
+      searchNotesContainer.style.display = "none";
+    }
+  }
   if (e.target.classList.contains("color-option")) changeNoteColor(e.target);
   if (
     e.target.classList.contains("note") ||
@@ -115,3 +142,9 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+searchNotesContainer.onclick = function (event) {
+  searchNotesInput.focus();
+};
+
+searchNotesInput.addEventListener("keyup", filterNotes);

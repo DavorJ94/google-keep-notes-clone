@@ -13,12 +13,15 @@ export default function modalFunction(id) {
   modal.setAttribute("data-currentNote", `${id}`);
   const clickedNoteTitle = document.querySelector(`#title-${id}`).innerText;
   const clickedNoteText = document.querySelector(`#text-${id}`).innerText;
-  const clickedNoteLabels = document
-    .querySelector(`#labelContainer-${id}`)
-    .innerText.replace(/\n/g, ", ");
+  if (document.querySelector(`#labelContainer-${id}`)) {
+    const clickedNoteLabels = document
+      .querySelector(`#labelContainer-${id}`)
+      .innerText.replace(/\n/g, ", ");
+    labelInput.value = clickedNoteLabels;
+  }
+
   if (clickedNoteTitle !== "(no title)") titleInput.value = clickedNoteTitle;
   if (clickedNoteText !== "(no description)") textInput.value = clickedNoteText;
-  labelInput.value = clickedNoteLabels;
 }
 
 export function saveToLocalStorageModal(e) {
@@ -42,6 +45,7 @@ export function saveToLocalStorageModal(e) {
   const clickedNoteTitle = document.querySelector(`#title-${currentId}`);
   const clickedNoteText = document.querySelector(`#text-${currentId}`);
   const clickedNoteLabels = document.querySelector(`#labelContainer-${id}`);
+
   if (titleInput.value) {
     clickedNoteTitle.innerText = titleInput.value;
     clickedNoteTitle.style.fontSize = "";
