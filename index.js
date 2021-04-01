@@ -51,6 +51,7 @@ document.addEventListener("click", function (e) {
     titleInput.style.display = "none";
     formButtons.style.display = "none";
     labelInput.style.display = "none";
+    noteInput.style.borderBottom = "none";
     const storageItems = Object.values({ ...localStorage });
     if (storageItems.length === 0) {
       notesMessage.style.display = "block";
@@ -62,6 +63,7 @@ document.addEventListener("click", function (e) {
     titleInput.style.display = "inline-block";
     formButtons.style.display = "flex";
     labelInput.style.display = "inline-block";
+    noteInput.style.borderBottom = "0.5px solid #5f636898";
     setDefaultTextArea(noteInput);
     const storageItems = Object.values({ ...localStorage });
     if (storageItems.length === 0) {

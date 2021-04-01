@@ -36,7 +36,6 @@ function createNewNote(
   ${labelValue && `<div class="labelAndIconsContainer">`}
     ${labelValue && labelContainer}
     <div class="trash-and-color-container" name=${id} id="trashAndPalette-"${id}>
-
       <button class="buttonAll buttonTrash" ><i name=${id} class="fas fa-trash buttonTrash"></i></button>
       <button class="buttonAll buttonPalette"><i name=${id} class="fas fa-palette palette">
       <div class="color-tooltip" name=${id}>
