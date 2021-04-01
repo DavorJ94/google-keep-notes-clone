@@ -17,7 +17,6 @@ function filterNotes() {
       parsedNoteText.includes(parsedInput) ||
       parsedLabel?.includes(parsedInput)
     ) {
-      console.log(parsedLabel);
       note.style.display = "flex";
     } else {
       note.style.display = "none";
